@@ -1,0 +1,36 @@
+<project name="Percolation-Coursera" default="dist" basedir=".">
+	<description>Projeto Percolation - Coursera</description>
+
+	<!-- set global properties for this build -->
+	<property name="src" location="src"/>
+	<property name="build" location="build"/>
+	<property name="dist"  location="dist"/>
+	<property name="lib"  location="lib"/>
+
+	<target name="init">
+		<tstamp/>
+		<delete dir="${build}"/>
+		<mkdir dir="${build}"/>
+	</target>
+
+	<target name="compile" depends="init" description="Compilar" >
+		<javac srcdir="${src}" destdir="${build}">
+			<classpath>
+				<pathelement path="${lib}/algs4.jar"/>
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="dist" depends="compile" description="Criar a distribuição" >
+		<mkdir dir="${dist}/lib"/>
+		<jar jarfile="${dist}/lib/Percolation-Coursera.jar" basedir="${build}" manifest="MANIFEST.MF">
+			<zipgroupfileset dir="${lib}" includes="*.jar" />
+		</jar>
+	</target>
+
+	<target name="clean" description="Limpando" >
+		<delete dir="${build}"/>
+		<delete dir="${dist}"/>
+	</target>
+
+</project>
