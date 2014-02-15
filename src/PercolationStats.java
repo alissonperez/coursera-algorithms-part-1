@@ -25,10 +25,10 @@ public class PercolationStats {
 			throw new IllegalArgumentException( "É preciso informar valores para N e T." ) ;
 		}
 
-		Integer n = Integer.parseInt( args[0] ) ;
-		Integer t = Integer.parseInt( args[1] ) ;
-
-		PercolationStats p = new PercolationStats( n , t ) ;
+		PercolationStats p = new PercolationStats(
+			Integer.parseInt( args[0] ) , // N (Tamanho NxN do grid)
+			Integer.parseInt( args[1] ) // T Número de iterações
+		) ;
 
 		System.out.print( "mean                    = " ) ;
 		System.out.println( p.mean() ) ;
