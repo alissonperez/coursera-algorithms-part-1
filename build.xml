@@ -17,6 +17,7 @@
 		<javac srcdir="${src}" destdir="${build}">
 			<classpath>
 				<pathelement path="${lib}/algs4.jar"/>
+				<pathelement path="${lib}/stdlib.jar"/>
 			</classpath>
 		</javac>
 	</target>

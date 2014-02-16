@@ -1,18 +1,17 @@
-// import java.lang.IllegalArgumentException ;
-
 /**
  * Percolation
  * http://coursera.cs.princeton.edu/algs4/assignments/percolation.html
+ * https://github.com/alissonperez/coursera-percolation
  *
  * @author Alisson R. Perez
  */
 public class Percolation {
 
-	protected int n ;
+	protected int n ; // Size
 
 	protected boolean[] open_sites ; // Nós abertos.
 
-	protected WeightedQuickUnionUF uf ;
+	protected WeightedQuickUnionUF uf ; // UnionFind implementation
 
 	protected int top_site ; // Nó superior que liga toda a linha superior do grid
 	protected int bottom_site ; // Nó inferior que liga toda a linha inferior do grid
