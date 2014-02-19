@@ -7,46 +7,46 @@
  */
 public class Percolation {
 
-	private int _n ; // Size
+	protected int n ; // Size
 
-	private boolean[] _open_sites ; // Nós abertos.
+	protected boolean[] open_sites ; // Nós abertos.
 
-	private WeightedQuickUnionUF _uf ; // UnionFind implementation
+	protected WeightedQuickUnionUF uf ; // UnionFind implementation
 
-	private int _top_site ; // Nó superior que liga toda a linha superior do grid
-	private int _bottom_site ; // Nó inferior que liga toda a linha inferior do grid
+	protected int top_site ; // Nó superior que liga toda a linha superior do grid
+	protected int bottom_site ; // Nó inferior que liga toda a linha inferior do grid
 
 	/**
 	 * Create N-by-N grid, with all sites blocked
 	 *
-	 * @param  n Tamanho
+	 * @param  newN Tamanho
 	 * @return
 	 */
-	public Percolation( int n ) {
-		_n = n ;
-		_initialize() ;
+	public Percolation( int newN ) {
+		n = newN ;
+		initialize() ;
 	}
 
 	/**
 	 * Inicializa
 	 */
-	private void _initialize() {
-		int n2 = _n*_n ;
+	protected void initialize() {
+		int n2 = n*n ;
 		int i ;
 
-		_open_sites = new boolean[n2] ;
+		open_sites = new boolean[n2] ;
 		for ( i = 0 ; i < n2 ; i++ ) {
-			_open_sites[i] = false ;
+			open_sites[i] = false ;
 		}
 
-		_top_site = n2 ;
-		_bottom_site = n2 + 1 ;
+		top_site = n2 ;
+		bottom_site = n2 + 1 ;
 
 		// Adiciona-se 2 para incluir o nó superior e inferior
-		_uf = new WeightedQuickUnionUF( n2+2 ) ;
-		for ( i = 0 ; i < _n ; i++ ) {
-			_uf.union( _top_site , i ) ; // Linha superior
-			_uf.union( _bottom_site , n2-i-1 ) ; // Linha inferior
+		uf = new WeightedQuickUnionUF( n2+2 ) ;
+		for ( i = 0 ; i < n ; i++ ) {
+			uf.union( top_site , i ) ; // Linha superior
+			uf.union( bottom_site , n2-i-1 ) ; // Linha inferior
 		}
 	}
 
@@ -59,8 +59,8 @@ public class Percolation {
 	public void open( int i , int j )  {
 		if ( isOpen( i , j ) ) return ;
 
-		_open_sites[ _getSiteIdx( i , j ) ] = true ;
-		_connectNeighborsIfOpen( i , j ) ;
+		open_sites[ getSiteIdx( i , j ) ] = true ;
+		connectNeighborsIfOpen( i , j ) ;
 	}
 
 	/**
@@ -69,20 +69,20 @@ public class Percolation {
 	 * @param i Linha
 	 * @param j Coluna
 	 */
-	private void _connectNeighborsIfOpen( int i , int j )  {
-		int siteIdx = _getSiteIdx( i , j ) ;
+	protected void connectNeighborsIfOpen( int i , int j )  {
+		int siteIdx = getSiteIdx( i , j ) ;
 
 		// Baixo
-		if ( i > 1 && isOpen( i-1 , j ) ) _uf.union( siteIdx , _getSiteIdx( i-1 , j ) ) ;
+		if ( i > 1 && isOpen( i-1 , j ) ) uf.union( siteIdx , getSiteIdx( i-1 , j ) ) ;
 
 		// Cima
-		if ( i < _n && isOpen( i+1 , j ) ) _uf.union( siteIdx , _getSiteIdx( i+1 , j ) ) ;
+		if ( i < n && isOpen( i+1 , j ) ) uf.union( siteIdx , getSiteIdx( i+1 , j ) ) ;
 
 		// Esquerda
-		if ( j > 1 && isOpen( i , j-1 ) ) _uf.union( siteIdx , _getSiteIdx( i , j-1 ) ) ;
+		if ( j > 1 && isOpen( i , j-1 ) ) uf.union( siteIdx , getSiteIdx( i , j-1 ) ) ;
 
 		// Direita
-		if ( j < _n && isOpen( i , j+1 ) ) _uf.union( siteIdx , _getSiteIdx( i , j+1 ) ) ;
+		if ( j < n && isOpen( i , j+1 ) ) uf.union( siteIdx , getSiteIdx( i , j+1 ) ) ;
 	}
 
 	/**
@@ -93,7 +93,7 @@ public class Percolation {
 	 * @return boolean
 	 */
 	public boolean isOpen( int i , int j )  {
-		return _open_sites[_getSiteIdx( i , j )] ;
+		return open_sites[getSiteIdx( i , j )] ;
 	}
 
 	/**
@@ -104,7 +104,7 @@ public class Percolation {
 	 * @return boolean
 	 */
 	public boolean isFull( int i , int j ) {
-		return _uf.connected( _getSiteIdx( i , j ) , _top_site ) ;
+		return uf.connected( getSiteIdx( i , j ) , top_site ) ;
 	}
 
 	/**
@@ -114,15 +114,15 @@ public class Percolation {
 	 * @param  j Coluna
 	 * @return int
 	 */
-	private int _getSiteIdx( int i , int j ) {
-		if ( i < 1 || i > _n || j < 1 || j > _n ) {
+	protected int getSiteIdx( int i , int j ) {
+		if ( i < 1 || i > n || j < 1 || j > n ) {
 			throw new IllegalArgumentException(
 				"As coordenadas 'i' e 'j' devem estar dentro do grid (NxN)."
 			) ;
 		}
 
 		// Transformar as cordenadas i e j no indíce do array
-		return ( j-1 ) + ( i-1 ) * _n ;
+		return ( j-1 ) + ( i-1 ) * n ;
 	}
 
 	/**
@@ -131,6 +131,27 @@ public class Percolation {
 	 * @return boolean
 	 */
 	public boolean percolates() {
-		return _uf.connected( _top_site , _bottom_site ) ;
+		return uf.connected( top_site , bottom_site ) ;
+	}
+
+	/**
+	 * Representação em String do objeto
+	 *
+	 * @return String
+	 */
+	public String toString() {
+		StringBuffer sb = new StringBuffer() ;
+
+		int n2 = n*n ;
+
+		for ( int i = 0 ; i < n2 ; i++ ) {
+			if ( i % n == 0 ) {
+				System.out.println( "" ) ;
+			}
+
+			System.out.print( open_sites[i] ? "." : "#" ) ;
+		}
+
+		return sb.toString() ;
 	}
 }

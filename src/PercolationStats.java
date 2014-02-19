@@ -8,28 +8,28 @@
 public class PercolationStats {
 
 	// Grid size (n) and num. of operations (t)
-	private int _n ;
-	private int _t ;
+	protected int n ;
+	protected int t ;
 
-	private double _mean ;
-	private double _stddev ;
-	private double[] _confidence ;
+	protected double mean ;
+	protected double stddev ;
+	protected double[] confidence ;
 
 	private boolean _initialized ;
 
 	/**
 	 * Perform T independent computational experiments on an N-by-N grid
 	 *
-	 * @param  n Size
-	 * @param  t Operations
+	 * @param  newN Size
+	 * @param  newT Operations
 	 * @return
 	 */
-	public PercolationStats( int n , int t ) {
-		_n = n ;
-		_t = t ;
+	public PercolationStats( int newN , int newT ) {
+		this.n = newN ;
+		this.t = newT ;
 
 		_initialized = false ;
-		if ( _n <= 0 || _t <= 0 )
+		if ( n <= 0 || t <= 0 )
 			throw new IllegalArgumentException( "N e T devem ser superiores à 0" ) ;
 	}
 
@@ -39,8 +39,8 @@ public class PercolationStats {
 	 * @return double
 	 */
 	public double mean() {
-		_initialize() ;
-		return _mean ;
+		initialize() ;
+		return mean ;
 	}
 
 	/**
@@ -49,8 +49,8 @@ public class PercolationStats {
 	 * @return double
 	 */
 	public double stddev() {
-		_initialize() ;
-		return _stddev ;
+		initialize() ;
+		return stddev ;
 	}
 
 	/**
@@ -59,8 +59,8 @@ public class PercolationStats {
 	 * @return double
 	 */
 	public double confidenceLo() {
-		_initialize() ;
-		return _confidence[0] ;
+		initialize() ;
+		return confidence[0] ;
 	}
 
 	/**
@@ -69,26 +69,26 @@ public class PercolationStats {
 	 * @return double
 	 */
 	public double confidenceHi() {
-		_initialize() ;
-		return _confidence[1] ;
+		initialize() ;
+		return confidence[1] ;
 	}
 
 	/**
 	 * Inicializa a classe
 	 */
-	private void _initialize() {
+	protected void initialize() {
 		if ( _initialized ) {
 			return ;
 		}
 
-		double[] fractions = _getFractions() ;
+		double[] fractions = getFractions() ;
 
-		_mean = StdStats.mean( fractions ) ;
-		_stddev = StdStats.stddev( fractions ) ;
+		mean = StdStats.mean( fractions ) ;
+		stddev = StdStats.stddev( fractions ) ;
 
-		_confidence = new double[2] ;
-		_confidence[0] = _mean - ( 1.96 * _stddev / Math.sqrt( _t ) ) ;
-		_confidence[1] = _mean + ( 1.96 * _stddev / Math.sqrt( _t ) ) ;
+		confidence = new double[2] ;
+		confidence[0] = mean - ( 1.96 * stddev / Math.sqrt( t ) ) ;
+		confidence[1] = mean + ( 1.96 * stddev / Math.sqrt( t ) ) ;
 
 		_initialized = true ;
 	}
@@ -100,22 +100,22 @@ public class PercolationStats {
 	 * O grid filtra (de "percolates") ao abrir a 240th casa, portanto a fração é 0.51 (204/400)
 	 * @return double[]
 	 */
-	private double[] _getFractions() {
-		double[] fractions = new double[_t] ;
+	protected double[] getFractions() {
+		double[] fractions = new double[t] ;
 		int n2 , operations , row , col ;
 
-		n2 = _n*_n ;
+		n2 = n*n ;
 		operations = 0 ;
 
 		Percolation o ;
 
-		for ( int i = 0 ; i < _t ; i++ ) {
+		for ( int i = 0 ; i < t ; i++ ) {
 			operations = 0 ;
-			o = new Percolation( _n ) ;
+			o = new Percolation( n ) ;
 
 			while ( ! o.percolates() ) {
-				row = StdRandom.uniform( _n ) + 1 ;
-				col = StdRandom.uniform( _n ) + 1 ;
+				row = StdRandom.uniform( n ) + 1 ;
+				col = StdRandom.uniform( n ) + 1 ;
 
 				if ( o.isOpen( row , col ) ) continue ;
 
