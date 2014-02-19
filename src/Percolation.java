@@ -7,14 +7,14 @@
  */
 public class Percolation {
 
-	protected int n ; // Size
+	private int n ; // Size
 
-	protected boolean[] open_sites ; // Nós abertos.
+	private boolean[] open_sites ; // Nós abertos.
 
-	protected WeightedQuickUnionUF uf ; // UnionFind implementation
+	private WeightedQuickUnionUF uf ; // UnionFind implementation
 
-	protected int top_site ; // Nó superior que liga toda a linha superior do grid
-	protected int bottom_site ; // Nó inferior que liga toda a linha inferior do grid
+	private int top_site ; // Nó superior que liga toda a linha superior do grid
+	private int bottom_site ; // Nó inferior que liga toda a linha inferior do grid
 
 	/**
 	 * Create N-by-N grid, with all sites blocked
@@ -30,7 +30,7 @@ public class Percolation {
 	/**
 	 * Inicializa
 	 */
-	protected void initialize() {
+	private void initialize() {
 		int n2 = n*n ;
 		int i ;
 
@@ -69,7 +69,7 @@ public class Percolation {
 	 * @param i Linha
 	 * @param j Coluna
 	 */
-	protected void connectNeighborsIfOpen( int i , int j )  {
+	private void connectNeighborsIfOpen( int i , int j )  {
 		int siteIdx = getSiteIdx( i , j ) ;
 
 		// Baixo
@@ -104,7 +104,8 @@ public class Percolation {
 	 * @return boolean
 	 */
 	public boolean isFull( int i , int j ) {
-		return uf.connected( getSiteIdx( i , j ) , top_site ) ;
+		int siteIdx = getSiteIdx( i , j ) ;
+		return open_sites[siteIdx] && uf.connected( siteIdx , top_site ) ;
 	}
 
 	/**
@@ -114,9 +115,9 @@ public class Percolation {
 	 * @param  j Coluna
 	 * @return int
 	 */
-	protected int getSiteIdx( int i , int j ) {
+	private int getSiteIdx( int i , int j ) {
 		if ( i < 1 || i > n || j < 1 || j > n ) {
-			throw new IllegalArgumentException(
+			throw new IndexOutOfBoundsException(
 				"As coordenadas 'i' e 'j' devem estar dentro do grid (NxN)."
 			) ;
 		}

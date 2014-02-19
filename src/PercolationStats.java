@@ -8,12 +8,12 @@
 public class PercolationStats {
 
 	// Grid size (n) and num. of operations (t)
-	protected int n ;
-	protected int t ;
+	private int n ;
+	private int t ;
 
-	protected double mean ;
-	protected double stddev ;
-	protected double[] confidence ;
+	private double mean ;
+	private double stddev ;
+	private double[] confidence ;
 
 	private boolean _initialized ;
 
@@ -76,7 +76,7 @@ public class PercolationStats {
 	/**
 	 * Inicializa a classe
 	 */
-	protected void initialize() {
+	private void initialize() {
 		if ( _initialized ) {
 			return ;
 		}
@@ -100,7 +100,7 @@ public class PercolationStats {
 	 * O grid filtra (de "percolates") ao abrir a 240th casa, portanto a fração é 0.51 (204/400)
 	 * @return double[]
 	 */
-	protected double[] getFractions() {
+	private double[] getFractions() {
 		double[] fractions = new double[t] ;
 		int n2 , operations , row , col ;
 
