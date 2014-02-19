@@ -135,24 +135,4 @@ public class Percolation {
 		return uf.connected( top_site , bottom_site ) ;
 	}
 
-	/**
-	 * Representação em String do objeto
-	 *
-	 * @return String
-	 */
-	public String toString() {
-		StringBuffer sb = new StringBuffer() ;
-
-		int n2 = n*n ;
-
-		for ( int i = 0 ; i < n2 ; i++ ) {
-			if ( i % n == 0 ) {
-				System.out.println( "" ) ;
-			}
-
-			System.out.print( open_sites[i] ? "." : "#" ) ;
-		}
-
-		return sb.toString() ;
-	}
 }
