@@ -113,7 +113,7 @@ public class PercolationStats {
             operations = 0;
             o = new Percolation(n);
 
-            while (! o.percolates()) {
+            while (!o.percolates()) {
                 row = StdRandom.uniform(n) + 1;
                 col = StdRandom.uniform(n) + 1;
 
