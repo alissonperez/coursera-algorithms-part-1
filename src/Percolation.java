@@ -32,10 +32,9 @@ public class Percolation {
      */
     private void initialize() {
         int n2 = n*n;
-        int i;
 
         openSites = new boolean[n2];
-        for (i = 0; i < n2; i++) {
+        for (int i = 0; i < n2; i++) {
             openSites[i] = false;
         }
 
@@ -44,10 +43,6 @@ public class Percolation {
 
         // Adiciona-se 2 para incluir o nó superior e inferior
         uf = new WeightedQuickUnionUF(n2+2);
-        for (i = 0; i < n; i++) {
-            uf.union(topSite , i); // Linha superior
-            uf.union(bottomSite , n2-i-1); // Linha inferior
-        }
     }
 
     /**
@@ -83,6 +78,12 @@ public class Percolation {
 
         // Direita
         if (j < n && isOpen(i , j+1)) uf.union(siteIdx , getSiteIdx(i , j+1));
+
+        // Conectar ao nó superior
+        if (i == 1) uf.union(siteIdx , topSite);
+
+        // Conectar ao nó inferior
+        if (i == n) uf.union(siteIdx , bottomSite);
     }
 
     /**
