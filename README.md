@@ -17,7 +17,7 @@ Especificação em [link](http://coursera.cs.princeton.edu/algs4/assignments/que
 ## Compilando
 
 * Criar um diretório "lib" na raiz do projeto.
-* Baixar as libs [algs4.jar](http://algs4.cs.princeton.edu/code/algs4.jar) e [stdlib.jar](aquihttp://introcs.cs.princeton.edu/java/stdlib/stdlib.jar) dentro do diretório "lib".
+* Baixar as libs [algs4.jar](http://algs4.cs.princeton.edu/code/algs4.jar) e [stdlib.jar](http://introcs.cs.princeton.edu/java/stdlib/stdlib.jar) dentro do diretório "lib".
 * Usar ant para construção dos Programming Assignments.
 
 Alisson R. Perez
