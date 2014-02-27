@@ -1,6 +1,14 @@
 import java.util.NoSuchElementException;
 import java.util.Iterator;
 
+/**
+ * Implementação do RandomizedQueue para o "Programming Assignment 2: Randomized Queues and Deques" do
+ * curso "Algorithms, Part I" no Coursera.
+ *
+ * Especificação em {@link http://coursera.cs.princeton.edu/algs4/assignments/queues.html}
+ *
+ * @author Alisson R. Perez
+ */
 public class RandomizedQueue<Item> implements Iterable<Item> {
 
     private Item[] items;

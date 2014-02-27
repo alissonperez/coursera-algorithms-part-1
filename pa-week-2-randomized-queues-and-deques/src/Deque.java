@@ -151,9 +151,10 @@ public class Deque<Item> implements Iterable<Item> {
     // Testes
     public static void main(String[] args) {
         testSimpleAddRemove();
-        testAddRemoveOneItem();
+        testAddRemoveallItems();
     }
 
+    // Testa a adição e remoção de forma geral
     private static void testSimpleAddRemove() {
         Deque<Integer> d = new Deque<Integer>();
         d.addFirst(10);
@@ -185,7 +186,8 @@ public class Deque<Item> implements Iterable<Item> {
         System.out.println("");
     }
 
-    private static void testAddRemoveOneItem() {
+    // Testa a adição de remoção total dos items
+    private static void testAddRemoveallItems() {
         Deque<Integer> d = new Deque<Integer>();
 
         d.addFirst(10);
