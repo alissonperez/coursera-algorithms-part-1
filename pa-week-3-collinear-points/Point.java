@@ -20,26 +20,23 @@ public class Point implements Comparable<Point> {
     private final int x;
     private final int y;
 
-    // unit test
-    public static void main(String[] args) {
-        Point p1 = new Point( 3 , 1 ) ;
-        p1.draw() ;
-
-        Point p = new Point( 1 , 1 ) ;
-        p.draw() ;
-
-        Point p2 = new Point( 5 , 5 ) ;
-        p.drawTo(p2) ;
-    }
-
     // create the point (x, y)
     public Point(int x, int y) {
-        /* DO NOT MODIFY */
         this.x = x;
         this.y = y;
 
         SLOPE_ORDER = new SlopeComparator();
     }
+
+    // unit test
+    public static void main(String[] args) {
+        Point p1 = new Point(3 , 1);
+        Point p = new Point(1 , 1);
+        Point p2 = new Point(5 , 4);
+
+        assert p1.slopeTo(p2) == 1.5;
+    }
+
 
     private class SlopeComparator implements Comparator<Point> {
         public int compare(Point p1, Point p2) {
@@ -57,13 +54,11 @@ public class Point implements Comparable<Point> {
 
     // plot this point to standard drawing
     public void draw() {
-        /* DO NOT MODIFY */
         StdDraw.point(x, y);
     }
 
     // draw line between this point and that point to standard drawing
     public void drawTo(Point that) {
-        /* DO NOT MODIFY */
         StdDraw.line(this.x, this.y, that.x, that.y);
     }
 
@@ -75,7 +70,7 @@ public class Point implements Comparable<Point> {
         if ((that.x - this.x) == 0)
             return Double.POSITIVE_INFINITY;
 
-        return (that.y - this.y) / (that.x - this.x);
+        return (float) (that.y - this.y) / (that.x - this.x);
     }
 
     // is this point lexicographically smaller than that one?
@@ -92,7 +87,6 @@ public class Point implements Comparable<Point> {
 
     // return string representation of this point
     public String toString() {
-        /* DO NOT MODIFY */
         return "(" + x + ", " + y + ")";
     }
 }
